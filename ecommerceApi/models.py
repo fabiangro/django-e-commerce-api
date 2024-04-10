@@ -1,9 +1,9 @@
 from django.db import models
 
 
-class OrderItems(models.Model):
-    order = models.ForeignKey('Orders', models.CASCADE)
-    product = models.ForeignKey('Products', models.CASCADE)
+class OrderItem(models.Model):
+    order = models.ForeignKey('ecommerceApi.models.Order', models.CASCADE)
+    product = models.ForeignKey('ecommerceApi.models.Product', models.CASCADE)
     quantity = models.IntegerField()
 
     class Meta:
@@ -12,8 +12,8 @@ class OrderItems(models.Model):
         unique_together = (('order', 'product'),)
 
 
-class Orders(models.Model):
-    user = models.ForeignKey('Users', models.CASCADE, blank=True, null=True)
+class Order(models.Model):
+    user = models.ForeignKey('ecommerceApi.models.User', models.CASCADE, blank=True, null=True)
     date = models.DateField(blank=True, null=True)
     status = models.CharField(blank=True, null=True)
 
@@ -22,7 +22,7 @@ class Orders(models.Model):
         db_table = 'orders'
 
 
-class Products(models.Model):
+class Product(models.Model):
     name = models.CharField(max_length=200)
     desc = models.CharField(max_length=500, blank=True, null=True)
     price = models.FloatField()
@@ -34,7 +34,7 @@ class Products(models.Model):
         db_table = 'products'
 
 
-class Users(models.Model):
+class User(models.Model):
     nick = models.CharField(max_length=16)
     email = models.CharField(max_length=30)
     password = models.CharField()
