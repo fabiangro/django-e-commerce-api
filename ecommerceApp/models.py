@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
     desc = models.CharField(max_length=500, blank=True, null=True)
     price = models.FloatField()
-    image = models.TextField(blank=True, null=True)
+    image = models.TextField(blank=True, null=True, default='https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=')
     quantity = models.IntegerField()
 
     class Meta:
@@ -15,7 +16,7 @@ class Product(models.Model):
 
 class User(models.Model):
     username = models.CharField(max_length=16)
-    email = models.CharField(max_length=30)
+    email = models.EmailField(unique=True)
     password = models.CharField()
     admin = models.BooleanField(default=False, blank=True, null=True)
 

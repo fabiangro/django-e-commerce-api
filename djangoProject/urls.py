@@ -20,6 +20,8 @@ from django.conf.urls import include
 
 
 urlpatterns = [
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
     path('admin/', admin.site.urls),
-    path('test/', include('ecommerceApp.urls'))
+    path('api/', include('ecommerceApp.urls'))
 ]
