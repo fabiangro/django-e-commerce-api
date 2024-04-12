@@ -10,37 +10,39 @@ class Product(models.Model):
     quantity = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'products'
 
 
-class User(models.Model):
-    username = models.CharField(max_length=16)
+class ShopUser(AbstractUser):
+    username = models.CharField(unique=True, max_length=16)
     email = models.EmailField(unique=True)
-    password = models.CharField()
     admin = models.BooleanField(default=False, blank=True, null=True)
 
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ('email', )
+
     class Meta:
-        managed = False
+        managed = True
         db_table = 'users'
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, models.CASCADE, blank=True, null=True)
+    user_id = models.ForeignKey(ShopUser, models.CASCADE, blank=True, null=True)
     date = models.DateField(blank=True, null=True)
     status = models.CharField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'orders'
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, models.CASCADE)
-    product = models.ForeignKey(Product, models.CASCADE)
+    order_id = models.ForeignKey(Order, models.CASCADE, default=None)
+    product_id = models.ForeignKey(Product, models.CASCADE, default=None)
     quantity = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'order_items'
-        unique_together = (('order', 'product'),)
+        unique_together = (('order_id', 'product_id'),)

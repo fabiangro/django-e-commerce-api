@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from ecommerceApp.models import User, Product, Order, OrderItem
-from ecommerceApp.serializers import (UserSerializer, ProductSerializer,
+from ecommerceApp.models import ShopUser, Product, Order, OrderItem
+from ecommerceApp.serializers import (ShopUserSerializer, ProductSerializer,
                                       OrderSerializer, OrderItemSerializer)
 
 

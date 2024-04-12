@@ -1,11 +1,13 @@
 from rest_framework import serializers
-from ecommerceApp.models import User, Product, Order, OrderItem
+from djoser.serializers import UserSerializer
+from django.contrib.auth import get_user_model
+from ecommerceApp.models import ShopUser, Product, Order, OrderItem
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
+class ShopUserSerializer(serializers.ModelSerializer):
+    class Meta(UserSerializer.Meta):
+        model = get_user_model()
+        fields = ['id', 'username', 'email', 'admin']
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -22,5 +24,5 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = OrderItem
         fields = '__all__'
