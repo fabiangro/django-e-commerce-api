@@ -52,8 +52,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
+    "TOKEN_OBTAIN_SERIALIZER":
+        'ecommerceApp.views.CustomTokenObtainViewSerializer',
     'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600)
 }
 
 MIDDLEWARE = [
@@ -101,7 +103,7 @@ DATABASES = {
         'PORT': '5432'
     }
 }
-
+APPEND_SLASH = True
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = "ecommerceApp.ShopUser"
@@ -144,7 +146,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 DJOSER = {
-    "SERIALIZER": {
-        'current_user': "ecommerceApp.serializers.ShopUserSerializer"
+    'SERIALIZERS': {
+        'current_user': "ecommerceApp.serializers.ShopUserSerializer",
+        'user': 'ecommerceApp.serializers.ShopUserSerializer'
     }
 }

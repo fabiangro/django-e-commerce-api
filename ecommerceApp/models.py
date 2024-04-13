@@ -28,8 +28,8 @@ class ShopUser(AbstractUser):
 
 
 class Order(models.Model):
-    user_id = models.ForeignKey(ShopUser, models.CASCADE, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    user = models.ForeignKey(ShopUser, models.CASCADE, blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     status = models.CharField(blank=True, null=True)
 
     class Meta:
@@ -38,8 +38,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order_id = models.ForeignKey(Order, models.CASCADE, default=None)
-    product_id = models.ForeignKey(Product, models.CASCADE, default=None)
+    order = models.ForeignKey(Order, models.CASCADE, default=None)
+    product = models.ForeignKey(Product, models.CASCADE, default=None)
     quantity = models.IntegerField()
 
     class Meta:
