@@ -1,23 +1,13 @@
-from typing import Dict, Any
-
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
-from django.http.response import JsonResponse, Http404
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from ecommerceApp.models import ShopUser, Product, Order, OrderItem
-from ecommerceApp.serializers import (ShopUserSerializer, ProductSerializer,
+from ecommerceApp.models import Product, Order, OrderItem
+from ecommerceApp.serializers import (ProductSerializer,
                                       OrderSerializer, OrderItemSerializer)
 
 
@@ -43,7 +33,6 @@ class OrderModelViewSet(ModelViewSet):
     def get_permissions(self):
         if self.request.method in ['POST', 'GET']:
             return [IsAuthenticated()]
-        print(self.request.data)
 
         return [IsAdminUser()]
 
@@ -94,7 +83,6 @@ class OrderItemModelViewSet(ModelViewSet):
         return [IsAdminUser()]
 
     def create(self, request, *args, **kwargs):
-        print(request.data)
         order_pk = request.data['order']
         order = get_object_or_404(Order, pk=order_pk)
         if order_pk and order:
