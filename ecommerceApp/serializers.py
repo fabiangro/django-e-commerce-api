@@ -13,7 +13,7 @@ class MainUserSerializer(serializers.ModelSerializer):
 class ShopUserSerializer(serializers.ModelSerializer):
     class Meta(UserSerializer.Meta):
         model = get_user_model()
-        fields = ['id', 'username', 'email', 'admin']
+        fields = ['id', 'username', 'email', 'is_staff']
 
 
 class ProductSerializer(serializers.ModelSerializer):

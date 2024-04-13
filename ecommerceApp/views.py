@@ -101,6 +101,7 @@ class CustomTokenObtainViewSerializer(TokenObtainPairSerializer):
         data['username'] = self.user.username
         data['email'] = self.user.email
         data['id'] = self.user.id
+        data['admin'] = self.user.is_staff
         return data
 
 
