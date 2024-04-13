@@ -108,7 +108,7 @@ class OrderItemModelViewSet(ModelViewSet):
 
 
 class CustomTokenObtainViewSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs: Dict[str, Any]) -> Dict[str, str]:
+    def validate(self, attrs):
         data = super().validate(attrs)
         data['username'] = self.user.username
         data['email'] = self.user.email
